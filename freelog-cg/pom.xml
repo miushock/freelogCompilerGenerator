@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.freelog.cg</groupId>
@@ -14,31 +14,57 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>11</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.7.RELEASE</version>
+  </parent>
+
   <dependencies>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <version>4.11</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <version>4.13</version>
       <scope>test</scope>
     </dependency>
-    <dependency> 
-      <groupId>org.antlr</groupId> 
-      <artifactId>ST4</artifactId> 
-      <version>4.3</version> 
+
+
+    <!-- https://mvnrepository.com/artifact/org.antlr/antlr4 -->
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4</artifactId>
+      <version>4.7.1</version>
     </dependency>
-    <dependency> 
-      <groupId>org.antlr</groupId> 
-      <artifactId>antlr4</artifactId> 
-      <version>4.8</version> 
-    </dependency> 
+
   </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>11</source>
+          <target>11</target>
+        </configuration>
+      </plugin>
+    </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -50,30 +76,10 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
-          <executions>
-            <execution>
-              <id>copy-resources</id>
-              <phase>process-resources</phase>
-              <goals>
-                <goal>copy-resources</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${project.build.outputDirectory}/grammar_templates</outputDirectory>
-                <resources>
-                  <resource>
-                    <directory>src/grammar_templates</directory>
-                  </resource>
-                </resources>
-              </configuration>
-            </execution>
-          </executions>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
-          <configuration>
-            <release>11</release>
-          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -100,17 +106,22 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-        <plugin>
-          <groupId>com.freelog.maven.plugin</groupId>
-          <artifactId>ST-maven-plugin</artifactId>
-          <version>1.0-SNAPSHOT</version>
-          <configuration>
-            <outputDirectory></outputDirectory>
-            <startingRule></startingRule>
-            <templateArguments></templateArguments>
-          </configuration>
-        </plugin>
+
+        <!--                <plugin>-->
+        <!--                    <artifactId>maven-assembly-plugin</artifactId>-->
+        <!--                    <configuration>-->
+        <!--                        <archive>-->
+        <!--                            <manifest>-->
+        <!--                                <mainClass>com.allen.capturewebdata.Main</mainClass>-->
+        <!--                            </manifest>-->
+        <!--                        </archive>-->
+        <!--                        <descriptorRefs>-->
+        <!--                            <descriptorRef>jar-with-dependencies</descriptorRef>-->
+        <!--                        </descriptorRefs>-->
+        <!--                    </configuration>-->
+        <!--                </plugin>-->
       </plugins>
+
     </pluginManagement>
   </build>
 </project>

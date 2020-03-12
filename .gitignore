@@ -7,3 +7,11 @@
 target/
 
 node_modules/
+.DS_Store
+.idea/
+freelog-cg/freelog-cg.iml
+freelog-cg/generated_grammar/
+freelog-cg/grammar_templates/
+freelog-cg/gen/
+freelog-cg/javascript/
+gen/
