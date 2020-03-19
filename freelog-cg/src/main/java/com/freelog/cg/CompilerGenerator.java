@@ -29,7 +29,6 @@ public class CompilerGenerator {
     private Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
 //    public static enum OptionArgType {NONE, STRING} // NONE implies boolean
-
 //    public static class Option {
 //        String name;
 //        OptionArgType argType;
@@ -45,18 +44,39 @@ public class CompilerGenerator {
 //            this.description = description;
 //        }
 //    }
-
 //    public static Map<String, Option> optionDefs = Map.ofEntries(
 //            Map.entry("color", new Option("-c", OptionArgType.STRING, "specify coloring definition of the compiler to be generated")),
 //            Map.entry("outputDir", new Option("-o", OptionArgType.STRING, "specify location to generate compilers or grammars")),
 //            Map.entry("target", new Option("-t", OptionArgType.STRING, "specify target language of the generated compilers"))
 //    );
+//
+    public static void main(String[] args) throws IOException{
+        // CompilerGenerator cg = new CompilerGenerator("./grammar_templates", "User", "generated_grammar/resource_policy.g4", "", "JavaScript");
+        // cg.renderGrammar("Resource");
+        // cg.parseGrammar();
 
-//    public static void main(String[] args) {
-//        CompilerGenerator cg = new CompilerGenerator("./grammar_templates", "User", "generated_grammar/resource_policy.g4", "", "JavaScript");
-//        cg.renderGrammar("Resource");
-//        cg.parseGrammar();
-//    }
+        String[] needCopyFiles = new String[]{
+            "grammar_templates/policy_grammar.st",
+            "grammar_templates/coloring/exhibit_coloring.g4.st",
+            "grammar_templates/coloring/resource_coloring.g4.st",
+            "grammar_templates/coloring/user_group_coloring.g4.st",
+        };
+        for (String file : needCopyFiles) {
+            CopyFile.copyFile(file, file);
+        }
+
+        System.out.println("Copy '.st' files done!");
+
+        CompilerGenerator cg = new CompilerGenerator(
+            "./grammar_templates",
+            "generated_grammar/resource_policy.g4",
+            "",
+            getArg(args,"targetLang"),
+            getArg(args, "targetDir"));
+            cg.renderGrammar(getArg(args, "color"));
+            cg.parseGrammar();
+            System.out.println("End!");
+    }// 
 
     /**
      * 构造函数
@@ -140,4 +160,27 @@ public class CompilerGenerator {
             e.printStackTrace();
         }
     }
+
+    private static String getArg(String[] args, String key) {
+        for (String arg : args) {
+            String prefix = "--" + key + "=";
+            if (arg.startsWith(prefix)) {
+                return arg.replace(prefix, "");
+            }
+        }
+        switch (key) {
+            case "color":
+                return "Resource";
+            case "targetLang":
+                return "JavaScript";
+            case "targetDir":
+                return "gen";
+            case "g4Files":
+            case "g4Dir":
+            default:
+                return null;
+        }
+    }
+
+    
 }

@@ -9,62 +9,35 @@
   <version>0.0.1</version>
 
   <name>freelog-cg</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>http://cg.freelog.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <java.version>11</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
   </properties>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.7.RELEASE</version>
-  </parent>
-
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>junit</groupId>-->
-<!--      <artifactId>junit</artifactId>-->
-<!--      <version>4.11</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
-
-    <!-- https://mvnrepository.com/artifact/junit/junit -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13</version>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
-
-
-    <!-- https://mvnrepository.com/artifact/org.antlr/antlr4 -->
-    <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4</artifactId>
-      <version>4.7.1</version>
+    <dependency> 
+      <groupId>org.antlr</groupId> 
+      <artifactId>ST4</artifactId> 
+      <version>4.3</version> 
     </dependency>
-
+    <dependency> 
+      <groupId>org.antlr</groupId> 
+      <artifactId>antlr4</artifactId> 
+      <version>4.8</version> 
+    </dependency> 
   </dependencies>
 
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>11</source>
-          <target>11</target>
-        </configuration>
-      </plugin>
-    </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -88,6 +61,13 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+	          <archive>
+	            <manifest>
+		            <mainClass>com.freelog.cg.CompilerGenerator</mainClass>
+	            </manifest>
+	          </archive>
+	        </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -106,20 +86,6 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
-
-        <!--                <plugin>-->
-        <!--                    <artifactId>maven-assembly-plugin</artifactId>-->
-        <!--                    <configuration>-->
-        <!--                        <archive>-->
-        <!--                            <manifest>-->
-        <!--                                <mainClass>com.allen.capturewebdata.Main</mainClass>-->
-        <!--                            </manifest>-->
-        <!--                        </archive>-->
-        <!--                        <descriptorRefs>-->
-        <!--                            <descriptorRef>jar-with-dependencies</descriptorRef>-->
-        <!--                        </descriptorRefs>-->
-        <!--                    </configuration>-->
-        <!--                </plugin>-->
       </plugins>
 
     </pluginManagement>

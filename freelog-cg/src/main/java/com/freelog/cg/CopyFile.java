@@ -7,7 +7,7 @@ public class CopyFile {
 
         createNotExistDir(dest);
 
-        ClassLoader classLoader = App.class.getClassLoader();
+        ClassLoader classLoader = CompilerGenerator.class.getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(source);
 //
         OutputStream output = new FileOutputStream(dest);
