@@ -49,6 +49,23 @@
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>
+           <executions>
+            <execution>
+              <id>copy-resources</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${project.build.outputDirectory}/grammar_templates</outputDirectory>
+                <resources>
+                  <resource>
+                    <directory>src/main/grammar_templates</directory>
+                  </resource>
+                </resources>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -64,7 +81,7 @@
           <configuration>
 	          <archive>
 	            <manifest>
-		            <mainClass>com.freelog.cg.CompilerGenerator</mainClass>
+		            <mainClass>com.freelog.cg.Main</mainClass>
 	            </manifest>
 	          </archive>
 	        </configuration>
