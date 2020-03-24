@@ -1,5 +1,8 @@
 package com.freelog.cg;
 
+import java.util.Map;
+import java.lang.reflect.Field;
+
 
 public class CompilerGeneratorBuilder {
 
@@ -8,11 +11,10 @@ public class CompilerGeneratorBuilder {
     private String color;
     private String grammarFile;
     private String targetLang;
-    private String targetDir;
 
     public CompilerGenerator build() 
     {
-        CompilerGenerator cg = new CompilerGenerator(this.templateDir, this.color, this.grammarFile, this.outputDir, this.targetLang, this.targetDir);
+        CompilerGenerator cg = new CompilerGenerator(this.templateDir, this.color, this.grammarFile, this.outputDir, this.targetLang);
         return cg;
     }
 
@@ -36,13 +38,23 @@ public class CompilerGeneratorBuilder {
         return this;
     }
 
-    public CompilerGeneratorBuilder setTargetDir(String targetDir) {
-        this.targetDir = targetDir;
+    public CompilerGeneratorBuilder setGrammarFile(String grammarFile) {
+        this.grammarFile = grammarFile;
         return this;
     }
 
-    public CompilerGeneratorBuilder setGrammarFile(String grammarFile) {
-        this.grammarFile = grammarFile;
+    public CompilerGeneratorBuilder setFieldsFromOptions(Map<String, String> cli_options) {
+        Class<? extends CompilerGeneratorBuilder> thisClass = this.getClass();;
+        for (Map.Entry<String, String> entry : cli_options.entrySet()) {
+            try {
+                Option option = Option.optionDefs.get(entry.getKey());
+                Field f = thisClass.getDeclaredField(option.fieldName);
+                f.set(this, entry.getValue());
+            }
+            catch (Exception e) {
+                System.err.println("can't access field");
+            }
+        }
         return this;
     }
 }
