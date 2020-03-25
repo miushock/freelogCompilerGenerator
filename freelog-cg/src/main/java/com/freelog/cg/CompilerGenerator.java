@@ -7,41 +7,43 @@ import org.stringtemplate.v4.STGroupDir;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Map;
-
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.*;
+import java.util.*;
 
 public class CompilerGenerator {
-    public String templateDir;
     public String color;
-    public String grammarFile;
+    public String grammarDir;
     public String targetLang;
     public String outputDir;
 
-    public Tool tool;
-    public String[] toolArgs;
+    public final Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
-    private Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
+    public final String templateResource = "./grammar_templates";
+    public final String grammarResource = "/grammar_files";
 
     public CompilerGenerator() {}
-    public CompilerGenerator(String templateDir, String color, String grammarFile, String outputDir, String targetLang) {
-        this.templateDir = templateDir;
+    public CompilerGenerator(String color, String grammarDir, String outputDir, String targetLang) {
         this.color = color;
         this.targetLang = targetLang;
         this.outputDir = outputDir;
-        this.grammarFile = grammarFile;
-        this.toolArgs = new String[]{
-                "-visitor",
-                "-Dlanguage=" + targetLang,
-                "-o", outputDir,
-                grammarFile
-        };
+        this.grammarDir = grammarDir;
     }
 
-    public void renderGrammar() {
-        STGroup stg = new STGroupDir(this.templateDir);
+    /*  two stages:
+     *      1. generate grammar from templates and resource
+     *          1.1 render templates
+     *          1.2 simply copy over those grammar that are not templated
+     *      2. compile grammar to generate compiler for specific target
+     */
+    public void generate() {
+        renderGrammarFromTemplate();
+        copyGrammar();
+        parseGrammar();
+    }
+
+    public void renderGrammarFromTemplate() {
+        STGroup stg = new STGroupDir(this.templateResource);
         String startingRule = "policy_grammar";
         ST st = stg.getInstanceOf(startingRule);
         st.add("color", this.color);
@@ -52,27 +54,55 @@ public class CompilerGenerator {
         }
 
         String grammar = st.render();
+
+        Path outputPath = Paths.get(this.grammarDir, "resource_policy.g4");
+        System.out.println(outputPath);
+        writeFile(outputPath, grammar);
+    }
+
+    private void copyGrammar(){
+        PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:**.g4");
         try {
-            writeInOutputDir("generated_grammar/resource_policy.g4", grammar);
-        } catch (IOException e) {
-            e.printStackTrace();
+            ResourceAccess.walkResource(this.grammarResource, new SimpleFileVisitor<Path>() { 
+                @Override
+                public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    if (matcher.matches(file)){
+                        System.out.println(file);
+                    }
+                    return FileVisitResult.CONTINUE;
+                }
+            }); 
+        }
+        catch (Exception e) {
+            System.err.println(e);
         }
     }
 
     public void parseGrammar() {
-        this.tool = new Tool(this.toolArgs);
-        this.tool.processGrammarsOnCommandLine();
+        Path grammarPath = Paths.get(this.grammarDir, "resource_policy.g4");
+        String [] toolArgs = new String[]{
+            grammarPath.toString(),
+            "-visitor",
+            "-Dlanguage=" + this.targetLang,
+            "-o", this.outputDir,
+        };
+        Tool tool = new Tool(toolArgs);
+        tool.processGrammarsOnCommandLine();
     }
 
 
-    private void writeInOutputDir(String filename, String content) throws IOException {
-        File file = new File(filename);
-        System.out.println(file);
-        Files.createDirectories(Paths.get(file.getParent()));
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
-            writer.write(content);
-        } catch (FileAlreadyExistsException e) {
-            e.printStackTrace();
+    private void writeFile(Path path, String content){;
+        try {
+            Files.createDirectories(path.getParent());
+            Files.createFile(path);
+            Files.writeString(path, content, StandardCharsets.UTF_8);
+        } 
+        catch (FileAlreadyExistsException e){
+            System.err.println(e);
         }
-    }    
+        catch (IOException e){
+            System.err.println(e);
+        }
+
+    }
 }

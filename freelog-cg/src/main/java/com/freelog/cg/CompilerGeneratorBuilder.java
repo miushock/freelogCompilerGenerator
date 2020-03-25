@@ -1,20 +1,21 @@
 package com.freelog.cg;
 
+
 import java.util.Map;
 import java.lang.reflect.Field;
 
 
 public class CompilerGeneratorBuilder {
 
-    private String templateDir;
-    private String outputDir;
-    private String color;
-    private String grammarFile;
-    private String targetLang;
+    public String templateDir = "./grammar_templates";
+    public String outputDir = "./output";
+    public String color = "resource";
+    public String grammarDir = "./generated_grammars";
+    public String targetLang = "./JavaScript";
 
     public CompilerGenerator build() 
     {
-        CompilerGenerator cg = new CompilerGenerator(this.templateDir, this.color, this.grammarFile, this.outputDir, this.targetLang);
+        CompilerGenerator cg = new CompilerGenerator(this.color, this.grammarDir, this.outputDir, this.targetLang);
         return cg;
     }
 
@@ -33,13 +34,8 @@ public class CompilerGeneratorBuilder {
         return this;
     }
 
-    public CompilerGeneratorBuilder setTemplateDir(String templateDir) {
-        this.templateDir = templateDir;
-        return this;
-    }
-
-    public CompilerGeneratorBuilder setGrammarFile(String grammarFile) {
-        this.grammarFile = grammarFile;
+    public CompilerGeneratorBuilder setGrammarDir(String grammarDir) {
+        this.grammarDir = grammarDir;
         return this;
     }
 

@@ -11,10 +11,9 @@ class Main {
         CompilerGeneratorBuilder cg_builder = new CompilerGeneratorBuilder();
         CompilerGenerator cg = cg_builder
                                 .setColor("user")
-                                .setTemplateDir("./grammar_templates")
                                 .build();
         
-        cg.renderGrammar();
+        cg.renderGrammarFromTemplate();
         cg.parseGrammar();
     }
 
