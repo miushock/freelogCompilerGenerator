@@ -19,8 +19,8 @@ public class CompilerGenerator {
 
     public final Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
-    public final String templateResource = "./grammar_templates";
-    public final String grammarResource = "/grammar_files";
+    public final String templateResource = "grammar_templates";
+    public final String grammarResource = "grammar_files";
 
     public CompilerGenerator() {}
     public CompilerGenerator(String color, String grammarDir, String outputDir, String targetLang) {
@@ -43,7 +43,7 @@ public class CompilerGenerator {
     }
 
     public void renderGrammarFromTemplate() {
-        STGroup stg = new STGroupDir(this.templateResource);
+        STGroup stg = new STGroupDir("grammar_templates");
         String startingRule = "policy_grammar";
         ST st = stg.getInstanceOf(startingRule);
         st.add("color", this.color);

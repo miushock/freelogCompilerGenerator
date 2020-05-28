@@ -7,11 +7,11 @@ import java.lang.reflect.Field;
 
 public class CompilerGeneratorBuilder {
 
-    public String templateDir = "./grammar_templates";
-    public String outputDir = "./output";
+    public String templateDir = "grammar_templates";
+    public String outputDir = "output";
     public String color = "resource";
-    public String grammarDir = "./generated_grammars";
-    public String targetLang = "./JavaScript";
+    public String grammarDir = "generated_grammars";
+    public String targetLang = "JavaScript";
 
     public CompilerGenerator build() 
     {
