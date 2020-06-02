@@ -17,7 +17,7 @@ public class ResourceAccessTest
     @Test
     public void grammarWalkerTest() {
         try {
-            Iterator<Path> iterator = ResourceAccess.jarFolderWalkStream("/grammar_files").iterator();
+            Iterator<Path> iterator = ResourceAccess.jarFolderWalkStream("grammar_files").iterator();
             while (iterator.hasNext()) {
                 System.out.println(iterator.next());
             }
@@ -30,7 +30,7 @@ public class ResourceAccessTest
     @Test
     public void rawWalkTest() {
         try {
-            ResourceAccess.walkResource("/grammar_files", new SimpleFileVisitor<Path>() { 
+            ResourceAccess.walkResource("grammar_files", new SimpleFileVisitor<Path>() { 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
                     System.out.println(file);

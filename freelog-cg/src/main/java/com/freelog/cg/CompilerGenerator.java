@@ -66,15 +66,18 @@ public class CompilerGenerator {
             ResourceAccess.walkResource(this.grammarResource, new SimpleFileVisitor<Path>() { 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                    System.out.println("visited");
                     if (matcher.matches(file)){
-                        System.out.println(file);
+                        System.out.println("gdir:"+CompilerGenerator.this.grammarDir);
+                        Path dest = Paths.get(CompilerGenerator.this.grammarDir + "/" + file.getFileName());
+                        copyFile(file, dest);
                     }
                     return FileVisitResult.CONTINUE;
                 }
             }); 
         }
         catch (Exception e) {
-            System.err.println(e);
+            System.err.println("copy grammar:\n" + e);
         }
     }
 
@@ -91,7 +94,7 @@ public class CompilerGenerator {
     }
 
 
-    private void writeFile(Path path, String content){;
+    private void writeFile(Path path, String content){
         try {
             Files.createDirectories(path.getParent());
             Files.createFile(path);
@@ -104,5 +107,15 @@ public class CompilerGenerator {
             System.err.println(e);
         }
 
+    }
+
+    private void copyFile(Path source, Path dest){
+
+        try {
+            Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (IOException e){
+            System.err.println(e);
+        }
     }
 }

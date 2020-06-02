@@ -13,8 +13,7 @@ class Main {
                                 .setColor("user")
                                 .build();
         
-        cg.renderGrammarFromTemplate();
-        cg.parseGrammar();
+        cg.generate();
     }
 
     public static Map<String, String> parseArgs (String[] args) {

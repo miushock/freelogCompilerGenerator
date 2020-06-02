@@ -2,7 +2,6 @@ package com.freelog.cg;
 
 import java.util.stream.Stream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URI;
 import java.io.*;
 import java.nio.file.*;
@@ -10,9 +9,8 @@ import java.util.Collections;
 
 class ResourceAccess {
     public static Stream<Path> jarFolderWalkStream (String folder_name) throws IOException, URISyntaxException{    
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        URL url = cl.getResource(folder_name);
-        Path path = Paths.get(url.toURI());
+        URI uri = ResourceAccess.class.getClassLoader().getResource(folder_name).toURI();
+        Path path = Paths.get(uri);
         return Files.walk(path, 1);
     }
 
@@ -24,12 +22,11 @@ class ResourceAccess {
     }
 
     public static void walkResource (String scope, SimpleFileVisitor<Path> visitor) throws URISyntaxException, IOException {
-        System.out.println(scope);
-        URI uri = ResourceAccess.class.getResource(scope).toURI();
-        System.out.println("Starting from: " + uri);
+        URI uri = ResourceAccess.class.getClassLoader().getResource(scope).toURI();
         try (FileSystem fileSystem = (uri.getScheme().equals("jar") ? FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap()) : null)) {
-            Path myPath = Paths.get(uri);
-            Files.walkFileTree(myPath, visitor);
+            System.out.println("in iter");
+            Path grammarDir = (fileSystem == null)? Paths.get(uri) : fileSystem.getPath(scope);
+            Files.walkFileTree(grammarDir, visitor);
         }
     }
 }
