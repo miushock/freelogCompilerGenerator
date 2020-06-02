@@ -13,5 +13,6 @@ freelog-cg/grammar_templates/
 freelog-cg/gen/
 freelog-cg/javascript/
 gen/
+bin/
 output
 generated_grammars
