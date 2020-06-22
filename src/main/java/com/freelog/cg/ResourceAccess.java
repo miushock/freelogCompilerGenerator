@@ -16,7 +16,6 @@ class ResourceAccess {
 
     public static InputStream getJarStreamReader(String fileName) {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        System.out.println(fileName);
         InputStream input = cl.getResourceAsStream(fileName);
         return input == null ? ResourceAccess.class.getResourceAsStream(fileName) : input;
     }
@@ -24,7 +23,6 @@ class ResourceAccess {
     public static void walkResource (String scope, SimpleFileVisitor<Path> visitor) throws URISyntaxException, IOException {
         URI uri = ResourceAccess.class.getClassLoader().getResource(scope).toURI();
         try (FileSystem fileSystem = (uri.getScheme().equals("jar") ? FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap()) : null)) {
-            System.out.println("in iter");
             Path grammarDir = (fileSystem == null)? Paths.get(uri) : fileSystem.getPath(scope);
             Files.walkFileTree(grammarDir, visitor);
         }

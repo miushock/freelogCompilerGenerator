@@ -1,7 +1,6 @@
-policy_grammar(color, keep_id) ::= <<
-grammar <color>Policy;
+grammar resourcePolicy;
 
-import <color>Definition, eventDefinition, expressionDefinition;
+import userGroupDefinition, eventDefinition, expressionDefinition;
 
 policy : (segment)* EOF;
 
@@ -110,7 +109,7 @@ users : SELF | NODES | PUBLIC | GROUPUSER | GROUPNODE | INT | ID;
 
 datetime: DATE TIME;
 
-resource_id : RESOURCE_ID_TOKEN { <keep_id> };
+resource_id : RESOURCE_ID_TOKEN {  };
 
 TIMEUNIT : C Y C L E S? | Y E A R S? | W E E K S? | D A Y S? | M O N T H S? ;
 
@@ -179,5 +178,3 @@ ID
 FEATHERACCOUNT : '$' (ALPHABET|DIGIT)+;
 
 WS  : [ \t\r\n]+ -> skip;
-
->>
