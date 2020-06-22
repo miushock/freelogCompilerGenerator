@@ -55,7 +55,11 @@ public class CompilerGenerator {
 
         String grammar = st.render();
 
+<<<<<<< HEAD
         Path outputPath = Paths.get(this.grammarDir, this.color+"Policy.g4");
+=======
+        Path outputPath = Paths.get(this.grammarDir, "resourcePolicy.g4");
+>>>>>>> to be squashed, grammar fix
         System.out.println(outputPath);
         writeFile(outputPath, grammar);
     }
@@ -80,7 +84,11 @@ public class CompilerGenerator {
     }
 
     public void parseGrammar() {
+<<<<<<< HEAD
         Path grammarPath = Paths.get(this.grammarDir, this.color+"Policy.g4");
+=======
+        Path grammarPath = Paths.get(this.grammarDir, "resourcePolicy.g4");
+>>>>>>> to be squashed, grammar fix
         String [] toolArgs = new String[]{
             grammarPath.toString(),
             "-visitor",
