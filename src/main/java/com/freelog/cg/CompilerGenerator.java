@@ -55,7 +55,7 @@ public class CompilerGenerator {
 
         String grammar = st.render();
 
-        Path outputPath = Paths.get(this.grammarDir, "resource_policy.g4");
+        Path outputPath = Paths.get(this.grammarDir, "resourcePolicy.g4");
         System.out.println(outputPath);
         writeFile(outputPath, grammar);
     }
@@ -82,7 +82,7 @@ public class CompilerGenerator {
     }
 
     public void parseGrammar() {
-        Path grammarPath = Paths.get(this.grammarDir, "resource_policy.g4");
+        Path grammarPath = Paths.get(this.grammarDir, "resourcePolicy.g4");
         String [] toolArgs = new String[]{
             grammarPath.toString(),
             "-visitor",
