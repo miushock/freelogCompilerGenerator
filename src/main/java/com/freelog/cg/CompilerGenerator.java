@@ -66,9 +66,7 @@ public class CompilerGenerator {
             ResourceAccess.walkResource(this.grammarResource, new SimpleFileVisitor<Path>() { 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                    System.out.println("visited");
                     if (matcher.matches(file)){
-                        System.out.println("gdir:"+CompilerGenerator.this.grammarDir);
                         Path dest = Paths.get(CompilerGenerator.this.grammarDir + "/" + file.getFileName());
                         copyFile(file, dest);
                     }
