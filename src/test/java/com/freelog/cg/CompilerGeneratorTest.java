@@ -13,11 +13,7 @@ public class CompilerGeneratorTest
     @Test
     public void generateJavaScriptTarget(){
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
-<<<<<<< HEAD
         CompilerGenerator cg = builder.setColor("userGroup").setTargetLang("JavaScript").setOutputDir("./target/js").setGrammarDir("./generated_grammar").build();
-=======
-        CompilerGenerator cg = builder.setColor("userGroup").setTargetLang("JavaScript").setOutputDir("./target/output").setGrammarDir("./target/generated_grammar").build();
->>>>>>> to be squashed, grammar fix
         cg.generate();
     }
 
