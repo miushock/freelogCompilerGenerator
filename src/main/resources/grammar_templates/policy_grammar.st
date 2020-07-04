@@ -1,5 +1,5 @@
 policy_grammar(color, keep_id) ::= <<
-grammar resourcePolicy;
+grammar <color>Policy;
 
 import <color>Definition, eventDefinition, expressionDefinition;
 
