@@ -1,8 +1,12 @@
-package com.freelog.cg;
+package com.freelog.cg.tool;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.nio.charset.Charset;
 
 import java.awt.Dimension;
-import java.lang.reflect.Constructor;
-import java.nio.charset.Charset;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,18 +30,20 @@ public class VisualTree {
     //}
     public static void main (String args[]) {
         VisualTree vt = new VisualTree();
-        vt.printAST(args[0]);
+        vt.printAST(args[0], args[1]);
     }
 
-    public void printAST(String color) {
+    public void printAST(String color, CharStream cstream) {
+
   
     }
 
-    public ParseTree getTree (String color, CharStream cstream) {
+    public ParserRuleContext getTree (String color, CharStream cstream)  throws IOException, IllegalAccessException, InvocationTargetException {
         String grammarName = color+"Policy";
         ClassLoader cl = VisualTree.class.getClassLoader();
         Parser parser = null;
         Lexer lexer = null;
+        ParserRuleContext tree = null;
 
 		Class<? extends Lexer> lexerClass = null;
         try {
@@ -61,8 +67,16 @@ public class VisualTree {
 
         CommonTokenStream tokenStream = new CommonTokenStream(lexer);
         tokenStream.fill();
-        parser.policy();
+        
+        try {
+            Method startRule = parserClass.getMethod("policy");
+            tree = (ParserRuleContext)startRule.invoke(parser, (Object[])null);
+        }
 
-        return null;
+        catch (NoSuchMethodException e) {
+            System.err.print("starting rule name(policy) not found");
+        }
+
+        return tree;
     }
 }
