@@ -7,12 +7,7 @@
 .idea/
 target/
 node_modules/
-freelog-cg/freelog-cg.iml
-freelog-cg/generated_grammar/
-freelog-cg/grammar_templates/
-freelog-cg/gen/
-freelog-cg/javascript/
 gen/
 bin/
 output
-generated_grammars
+generated_grammar*
