@@ -12,7 +12,7 @@ import java.nio.file.*;
 import java.util.*;
 
 public class CompilerGenerator {
-    public String color;
+    public String serviceName;
     public String grammarDir;
     public String targetLang;
     public String outputDir;
@@ -23,8 +23,8 @@ public class CompilerGenerator {
     public final String grammarResource = "grammar_files";
 
     public CompilerGenerator() {}
-    public CompilerGenerator(String color, String grammarDir, String outputDir, String targetLang) {
-        this.color = color;
+    public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang) {
+        this.serviceName = serviceName;
         this.targetLang = targetLang;
         this.outputDir = outputDir;
         this.grammarDir = grammarDir;
@@ -46,7 +46,7 @@ public class CompilerGenerator {
         STGroup stg = new STGroupDir("grammar_templates");
         String startingRule = "policy_grammar";
         ST st = stg.getInstanceOf(startingRule);
-        st.add("color", this.color);
+        st.add("serviceName", this.serviceName);
 
         Map<String, String> injections = all_injections.get(this.targetLang);
         for (Map.Entry<String, String> entry : injections.entrySet()) {
@@ -55,7 +55,7 @@ public class CompilerGenerator {
 
         String grammar = st.render();
 
-        Path outputPath = Paths.get(this.grammarDir, this.color+"Policy.g4");
+        Path outputPath = Paths.get(this.grammarDir, this.serviceName+"Policy.g4");
         System.out.println(outputPath);
         writeFile(outputPath, grammar);
     }
@@ -80,12 +80,12 @@ public class CompilerGenerator {
     }
 
     public void parseGrammar() {
-        Path grammarPath = Paths.get(this.grammarDir, this.color+"Policy.g4");
+        Path grammarPath = Paths.get(this.grammarDir, this.serviceName+"Policy.g4");
         String [] toolArgs = new String[]{
             grammarPath.toString(),
             "-visitor",
             "-Dlanguage=" + this.targetLang,
-            "-o", this.outputDir,
+            "-o", this.outputDir
         };
         Tool tool = new Tool(toolArgs);
         tool.processGrammarsOnCommandLine();

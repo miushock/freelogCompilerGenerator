@@ -1,7 +1,7 @@
 package com.freelog.cg;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 
 import java.io.*;
 import java.nio.file.*;
@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Unit test for simple App.
  */
-public class ResourceAccessTest 
+public class ResourceAccessTest
 {
     @Test
     public void grammarWalkerTest() {

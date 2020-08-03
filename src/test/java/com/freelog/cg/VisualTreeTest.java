@@ -1,6 +1,6 @@
 package com.freelog.cg;
 
-import org.junit.Test;
+//import org.junit.Test;
 
 public class VisualTreeTest {
 //
