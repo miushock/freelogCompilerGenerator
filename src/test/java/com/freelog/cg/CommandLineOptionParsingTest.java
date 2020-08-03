@@ -26,9 +26,9 @@ public class CommandLineOptionParsingTest
 
     @Test
     public void parse_multiple () {
-        String [] args = new String[]{"-c", "User", "-t", "JavaScript", "-o", "./output"};
+        String [] args = new String[]{"-sn", "User", "-t", "JavaScript", "-o", "./output"};
         Map<String, String> argMap = Main.parseArgs(args);
-        assertEquals("{-o=./output, -c=User, -t=JavaScript}", argMap.toString());
+        assertEquals("{-o=./output, -t=JavaScript, -sn=User}", argMap.toString());
     }
 
     @Test
@@ -40,11 +40,11 @@ public class CommandLineOptionParsingTest
 
     @Test
     public void setCGWithArgs () {
-        String [] args = new String[]{"-c", "User", "-t", "JavaScript", "-o", "./output"};
+        String [] args = new String[]{"-sn", "User", "-t", "JavaScript", "-o", "./output"};
         Map<String, String> argMap = Main.parseArgs(args);
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
         CompilerGenerator cg = builder.setFieldsFromOptions(argMap).build();
-        assertEquals("User", cg.color);
+        assertEquals("User", cg.serviceName);
         assertEquals("JavaScript", cg.targetLang);
         assertEquals("./output", cg.outputDir);
     }

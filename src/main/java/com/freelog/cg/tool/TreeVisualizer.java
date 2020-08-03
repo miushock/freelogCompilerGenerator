@@ -24,8 +24,7 @@ public class TreeVisualizer {
             ClassNotFoundException {
         CharStream charStream = CharStreams.fromPath(Paths.get(args[1]));
         Class <? extends Parser> parserClass = getParserClass(args[0]);
-        //Parser parser = getParserFromParserClass(parserClass);
-        Parser parser = getParserOfService(args[0]);
+        Parser parser = getParserFromParserClass(parserClass);
         Lexer lexer = getLexerOfService(args[0]);
         Tree tree = parseForTree(parser, parserClass, lexer, charStream);
         TreeVisualizer.viewAST(Arrays.asList(parser.getRuleNames()), tree);

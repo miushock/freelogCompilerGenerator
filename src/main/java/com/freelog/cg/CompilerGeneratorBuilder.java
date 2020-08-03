@@ -9,18 +9,18 @@ public class CompilerGeneratorBuilder {
 
     public String templateDir = "grammar_templates";
     public String outputDir = "output";
-    public String color = "resource";
+    public String serviceName = "resource";
     public String grammarDir = "generated_grammars";
     public String targetLang = "JavaScript";
 
     public CompilerGenerator build() 
     {
-        CompilerGenerator cg = new CompilerGenerator(this.color, this.grammarDir, this.outputDir, this.targetLang);
+        CompilerGenerator cg = new CompilerGenerator(this.serviceName, this.grammarDir, this.outputDir, this.targetLang);
         return cg;
     }
 
-    public CompilerGeneratorBuilder setColor(String color) {
-        this.color = color;
+    public CompilerGeneratorBuilder setServiceName(String serviceName) {
+        this.serviceName = serviceName;
         return this;
     }
 
