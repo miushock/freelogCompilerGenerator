@@ -1,4 +1,4 @@
-lexer grammar Token.g4
+lexer grammar Token;
 
 SELF : 'self';
 TERMINATE : 'terminate';
@@ -24,16 +24,18 @@ MONEY_AMOUNT : '$' DIGIT+ ('.' DIGIT DIGIT?)?;
 TIME : TWO_DIGITS ':' TWO_DIGITS (':' TWO_DIGITS)?;
 DATE : FOUR_DIGITS '-' TWO_DIGITS '-' TWO_DIGITS;
 
-PERIOD : ('cycle'|'cycles') | ('week'|'weeks') | ('month'|'months') | ('year'|'years')
-
 PHONE_NUMBER_CN_MOBILE : ELEVEN_DIGITS;
-EMAIL : [a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+);
+EMAIL: LOCAL_SUBPART ('.' LOCAL_SUBPART)* '@' DOMAIN_SUBPART ('.' DOMAIN_SUBPART)*;
+fragment LOCAL_SUBPART : [a-zA-Z0-9\-_~!$&()*+,;=:]+;
+fragment DOMAIN_SUBPART : [a-zA-Z0-9\-]+;
 
-TWO_DIGITS : DIGIT DIGIT ;
-THREE_DIGITS : TWO_DIGITS DIGIT;
-FOUR_DIGITS : TWO_DIGITS TWO_DIGITS;
-NIGHT_DIGITS : FOUR_DIGITS FOUR_DIGITS DIGIT;
-ELEVEN_DIGITS : FOUR_DIGITS FOUR_DIGITS THREE_DIGITS;
+PERIOD : ('cycle'|'cycles') | ('week'|'weeks') | ('month'|'months') | ('year'|'years');
+
+fragment TWO_DIGITS : DIGIT DIGIT ;
+fragment THREE_DIGITS : TWO_DIGITS DIGIT;
+fragment FOUR_DIGITS : TWO_DIGITS TWO_DIGITS;
+fragment NIGHT_DIGITS : FOUR_DIGITS FOUR_DIGITS DIGIT;
+fragment ELEVEN_DIGITS : FOUR_DIGITS FOUR_DIGITS THREE_DIGITS;
 
 ID
   : ALPHABET (ALPHABET | INT | '_' | '-')*

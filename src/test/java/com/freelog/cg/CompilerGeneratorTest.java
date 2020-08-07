@@ -20,7 +20,7 @@ public class CompilerGeneratorTest
     @Test
     public void generateJavaTarget(){
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
-        CompilerGenerator cg = builder.setServiceName("userGroup").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").build();
+        CompilerGenerator cg = builder.setPartialNode("Token").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").build();
         cg.generate();
     }
 }
