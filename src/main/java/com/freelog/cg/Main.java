@@ -10,7 +10,7 @@ class Main {
     public static void main(String[] args) {
         CompilerGeneratorBuilder cg_builder = new CompilerGeneratorBuilder();
         CompilerGenerator cg = cg_builder
-                                .setColor("user")
+                                .setServiceName("user")
                                 .build();
         
         cg.generate();

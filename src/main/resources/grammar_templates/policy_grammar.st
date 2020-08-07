@@ -1,7 +1,7 @@
-policy_grammar(color, keep_id) ::= <<
-grammar <color>Policy;
+policy_grammar(serviceName, keep_id) ::= <<
+grammar <serviceName>Policy;
 
-import <color>Definition, eventDefinition, expressionDefinition;
+import <serviceName>Definition, eventDefinition, expressionDefinition;
 
 policy : (segment)* EOF;
 
@@ -178,6 +178,6 @@ ID
 
 FEATHERACCOUNT : '$' (ALPHABET|DIGIT)+;
 
-WS  : [ \t\r\n]+ -> skip;
+WS  : [ \t\r\n]+ -> skip; 
 
 >>
