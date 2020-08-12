@@ -23,6 +23,7 @@ public class Option {
         Map.entry("-sn", new Option("serviceName", OptionArgType.STRING, "specify coloring definition of the compiler to be generated")),
         Map.entry("-o", new Option("outputDir", OptionArgType.STRING, "specify location to generate compilers or grammars")),
         Map.entry("-t", new Option("targetLang", OptionArgType.STRING, "specify target language of the generated compilers")),
+        Map.entry("-nv", new Option("noVisitor", "dont generate visitor")),
         Map.entry("-p", new Option("partial", OptionArgType.STRING, "partial compile up to specific partial step grammar definition, grammar definition DAG for structure")),
         Map.entry("-help", new Option("help", OptionArgType.STRING, "print help messages"))
 );

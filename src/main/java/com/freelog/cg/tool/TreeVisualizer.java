@@ -15,6 +15,10 @@ import org.antlr.v4.gui.TreeViewer;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
+
+/*  Main purpose of this tool is to visualize parse tree, instead of testrig that come with antlr, 
+    this tool allows user to pass in Tree type, so one can play around with the pass tree abit then 
+    try to visualize the result */
 public class TreeVisualizer {
     
 

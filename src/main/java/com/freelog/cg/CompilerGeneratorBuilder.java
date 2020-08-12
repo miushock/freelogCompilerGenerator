@@ -12,11 +12,13 @@ public class CompilerGeneratorBuilder {
     public String serviceName = "resource";
     public String grammarDir = "generated_grammars";
     public String targetLang = "JavaScript";
+    public Boolean noVisitor = false;
+    public Boolean noListener = false;
     public String partialNode = "";
 
     public CompilerGenerator build() 
     {
-        CompilerGenerator cg = new CompilerGenerator(this.serviceName, this.grammarDir, this.outputDir, this.targetLang, this.partialNode);
+        CompilerGenerator cg = new CompilerGenerator(this.serviceName, this.grammarDir, this.outputDir, this.targetLang, this.partialNode, this.noVisitor, this.noListener);
         return cg;
     }
 
@@ -42,6 +44,16 @@ public class CompilerGeneratorBuilder {
 
     public CompilerGeneratorBuilder setPartialNode(String partialNode) {
         this.partialNode = partialNode;
+        return this;
+    }
+
+    public CompilerGeneratorBuilder setNoVisitor(Boolean noVisitor) {
+        this.noVisitor = noVisitor;
+        return this;
+    }
+
+    public CompilerGeneratorBuilder setNoListener(Boolean noListener) {
+        this.noListener = noListener;
         return this;
     }
 

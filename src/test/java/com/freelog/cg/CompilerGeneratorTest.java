@@ -18,9 +18,16 @@ public class CompilerGeneratorTest
     }
 
     @Test
-    public void generateJavaTarget(){
+    public void generateJavaLexer(){
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
-        CompilerGenerator cg = builder.setPartialNode("Token").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").build();
+        CompilerGenerator cg = builder.setPartialNode("LexToken").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").build();
+        cg.generate();
+    }
+
+    @Test
+    public void generateJavaEntityParser(){
+        CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
+        CompilerGenerator cg = builder.setPartialNode("Entity").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).build();
         cg.generate();
     }
 }
