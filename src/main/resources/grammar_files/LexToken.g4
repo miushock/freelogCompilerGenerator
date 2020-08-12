@@ -1,4 +1,4 @@
-lexer grammar Token;
+lexer grammar LexToken;
 
 SELF : 'self';
 TERMINATE : 'terminate';

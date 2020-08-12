@@ -17,6 +17,8 @@ public class CompilerGenerator {
     public String targetLang;
     public String outputDir;
     public String partialNode;
+    public Boolean noVisitor;
+    public Boolean noListener;
 
     public final Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
@@ -24,12 +26,14 @@ public class CompilerGenerator {
     public final String grammarResource = "grammar_files";
 
     public CompilerGenerator() {}
-    public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang, String partialNode) {
+    public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang, String partialNode, Boolean noVisitor, Boolean noListener) {
         this.serviceName = serviceName;
         this.targetLang = targetLang;
         this.outputDir = outputDir;
         this.grammarDir = grammarDir;
         this.partialNode = partialNode;
+        this.noVisitor = noVisitor;
+        this.noListener = noListener;
     }
 
     /*  two stages:
@@ -84,9 +88,12 @@ public class CompilerGenerator {
     public void parseGrammar() {
         String grammarFile = this.partialNode.equals("")? this.serviceName+"Policy.g4" : this.partialNode + ".g4";
         Path grammarPath = Paths.get(this.grammarDir, grammarFile);
+        String visitorFlag = this.noVisitor ? "-no-visitor" : "-visitor";
+        String listenerFlag = this.noListener ? "-no-listener" : "-listener";
         String [] toolArgs = new String[]{
             grammarPath.toString(),
-            "-visitor",
+            visitorFlag,
+            listenerFlag,
             "-Dlanguage=" + this.targetLang,
             "-o", this.outputDir,
         };
