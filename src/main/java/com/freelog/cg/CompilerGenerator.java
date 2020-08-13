@@ -19,6 +19,7 @@ public class CompilerGenerator {
     public String partialNode;
     public Boolean noVisitor;
     public Boolean noListener;
+    public String packageName;
 
     public final Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
@@ -26,7 +27,7 @@ public class CompilerGenerator {
     public final String grammarResource = "grammar_files";
 
     public CompilerGenerator() {}
-    public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang, String partialNode, Boolean noVisitor, Boolean noListener) {
+    public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang, String partialNode, Boolean noVisitor, Boolean noListener, String packageName) {
         this.serviceName = serviceName;
         this.targetLang = targetLang;
         this.outputDir = outputDir;
@@ -34,6 +35,7 @@ public class CompilerGenerator {
         this.partialNode = partialNode;
         this.noVisitor = noVisitor;
         this.noListener = noListener;
+        this.packageName = packageName;
     }
 
     /*  two stages:
@@ -90,14 +92,25 @@ public class CompilerGenerator {
         Path grammarPath = Paths.get(this.grammarDir, grammarFile);
         String visitorFlag = this.noVisitor ? "-no-visitor" : "-visitor";
         String listenerFlag = this.noListener ? "-no-listener" : "-listener";
-        String [] toolArgs = new String[]{
+        List<String> toolArgs = new LinkedList<String> (Arrays.asList(
             grammarPath.toString(),
             visitorFlag,
             listenerFlag,
             "-Dlanguage=" + this.targetLang,
-            "-o", this.outputDir,
-        };
-        Tool tool = new Tool(toolArgs);
+            "-o", this.outputDir
+        ));
+
+        if (this.packageName != null) {
+            toolArgs.add("-package");
+            toolArgs.add(this.packageName);
+        }
+
+
+        String[] toolArgsArray = new String[toolArgs.size()];
+        toolArgs.toArray(toolArgsArray);
+        System.out.println("array\n"+Arrays.toString(toolArgsArray));
+
+        Tool tool = new Tool(toolArgsArray);
         tool.processGrammarsOnCommandLine();
     }
 

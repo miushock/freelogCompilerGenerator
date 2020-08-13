@@ -15,10 +15,11 @@ public class CompilerGeneratorBuilder {
     public Boolean noVisitor = false;
     public Boolean noListener = false;
     public String partialNode = "";
+    public String packageName = null;
 
     public CompilerGenerator build() 
     {
-        CompilerGenerator cg = new CompilerGenerator(this.serviceName, this.grammarDir, this.outputDir, this.targetLang, this.partialNode, this.noVisitor, this.noListener);
+        CompilerGenerator cg = new CompilerGenerator(this.serviceName, this.grammarDir, this.outputDir, this.targetLang, this.partialNode, this.noVisitor, this.noListener, this.packageName);
         return cg;
     }
 
@@ -54,6 +55,12 @@ public class CompilerGeneratorBuilder {
 
     public CompilerGeneratorBuilder setNoListener(Boolean noListener) {
         this.noListener = noListener;
+        return this;
+    }
+
+    public CompilerGeneratorBuilder setPackageName(String packageName) {
+        System.out.println(packageName);
+        this.packageName = packageName;
         return this;
     }
 
