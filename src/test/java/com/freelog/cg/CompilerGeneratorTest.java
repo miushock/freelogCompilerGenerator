@@ -27,7 +27,7 @@ public class CompilerGeneratorTest
     @Test
     public void generateJavaEntityParser(){
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
-        CompilerGenerator cg = builder.setPartialNode("Entity").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).build();
+        CompilerGenerator cg = builder.setPartialNode("Entity").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).setPackageName("com.freelog.compiler").build();
         cg.generate();
     }
 }

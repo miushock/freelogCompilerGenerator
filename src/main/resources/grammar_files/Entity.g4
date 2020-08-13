@@ -1,6 +1,18 @@
 grammar Entity;
 import LexToken;
 
+//this rule serve as starting rule for testing Entities only
+entity_bracket : 
+    ( subject_service
+    | event_service
+    | subject
+    | event
+    | policy
+    | account
+    | user_orgnization_name
+    )*
+    ;
+
 subject_service :SUBJECT_SERVICE_NAME;
 event_service : EVENT_SERVICE_NAME;
 
