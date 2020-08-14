@@ -10,7 +10,7 @@ entity_bracket :
     | policy
     | account
     | user_orgnization_name
-    )*
+    )* EOF
     ;
 
 subject_service :SUBJECT_SERVICE_NAME;
