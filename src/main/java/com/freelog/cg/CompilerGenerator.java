@@ -23,8 +23,9 @@ public class CompilerGenerator {
 
     public final Map<String, Map<String, String>> all_injections = TargetDependentInjection.injections;
 
-    public final String templateResource = "grammar_templates";
+    public final String templateGroupDir = "grammar_templates";
     public final String grammarResource = "grammar_files";
+    public final String templateStartingRule = "policy_grammar";
 
     public CompilerGenerator() {}
     public CompilerGenerator(String serviceName, String grammarDir, String outputDir, String targetLang, String partialNode, Boolean noVisitor, Boolean noListener, String packageName) {
@@ -51,8 +52,8 @@ public class CompilerGenerator {
     }
 
     public void renderGrammarFromTemplate() {
-        STGroup stg = new STGroupDir("grammar_templates");
-        String startingRule = "policy_grammar";
+        STGroup stg = new STGroupDir(this.templateGroupDir);
+        String startingRule = this.templateStartingRule;
         ST st = stg.getInstanceOf(startingRule);
         st.add("serviceName", this.serviceName);
 
@@ -108,7 +109,7 @@ public class CompilerGenerator {
 
         String[] toolArgsArray = new String[toolArgs.size()];
         toolArgs.toArray(toolArgsArray);
-        System.out.println("array\n"+Arrays.toString(toolArgsArray));
+        //System.out.println("array\n"+Arrays.toString(toolArgsArray));
 
         Tool tool = new Tool(toolArgsArray);
         tool.processGrammarsOnCommandLine();

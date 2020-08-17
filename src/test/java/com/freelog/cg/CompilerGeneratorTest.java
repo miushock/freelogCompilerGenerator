@@ -13,7 +13,7 @@ public class CompilerGeneratorTest
     @Test
     public void generateJavaScriptTarget(){
         CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
-        CompilerGenerator cg = builder.setServiceName("userGroup").setTargetLang("JavaScript").setOutputDir("./target/js").setGrammarDir("./target/generated_grammar").build();
+        CompilerGenerator cg = builder.setServiceName("Resource").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).setPackageName("com.freelog.compiler").build();
         cg.generate();
     }
 
@@ -30,4 +30,12 @@ public class CompilerGeneratorTest
         CompilerGenerator cg = builder.setPartialNode("Entity").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).setPackageName("com.freelog.compiler").build();
         cg.generate();
     }
+
+    @Test
+    public void generateJavaExpressionParser(){
+        CompilerGeneratorBuilder builder = new CompilerGeneratorBuilder();
+        CompilerGenerator cg = builder.setPartialNode("Expression").setTargetLang("Java").setOutputDir("./target/java").setGrammarDir("./target/generated_grammar").setNoVisitor(true).setNoListener(true).setPackageName("com.freelog.compiler").build();
+        cg.generate();
+    }
+
 }
