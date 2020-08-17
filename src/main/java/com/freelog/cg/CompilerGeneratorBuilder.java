@@ -9,7 +9,7 @@ public class CompilerGeneratorBuilder {
 
     public String templateDir = "grammar_templates";
     public String outputDir = "output";
-    public String serviceName = "resource";
+    public String serviceName = "Resource";
     public String grammarDir = "generated_grammars";
     public String targetLang = "JavaScript";
     public Boolean noVisitor = false;

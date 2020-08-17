@@ -1,6 +1,6 @@
-grammar resourceDefinition;
+grammar ResourceService;
 
-color
+service_state
     : 'authorized'
     | 'unauthorized'
     ;

@@ -12,6 +12,7 @@ EVENT_SERVICE_NAME: '~' ID;
 ANY_CONTRACT : 'AnyContract';
 WITH: 'with';
 OF: 'of';
+REQUIRE : 'require';
 
 USER_ID : PHONE_NUMBER_CN_MOBILE | EMAIL;
 
@@ -74,3 +75,33 @@ fragment W : ('W'|'w');
 fragment X : ('X'|'x');
 fragment Y : ('Y'|'y');
 fragment Z : ('Z'|'z');
+
+LPAREN : '(' ;
+RPAREN : ')' ;
+PLUS : '+' ;
+MINUS : '-' ;
+TIMES : '*' ;
+DIV : '/' ;
+GT : '>' ;
+LT : '<' ;
+EQ : '=' ;
+COMMA : ',' ;
+POINT : '.' ;
+POW : '^' ;
+PI : 'pi' ;
+
+SCIENTIFIC_NUMBER
+   : NUMBER (('E' | 'e') SIGN? NUMBER)?
+   ;
+
+EULER : 'e' ;
+
+SUM : 'sum' ;
+
+fragment NUMBER
+   : ('0' .. '9') + ('.' ('0' .. '9') +)?
+   ;
+
+fragment SIGN
+   : ('+' | '-')
+   ;

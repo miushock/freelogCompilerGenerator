@@ -1,4 +1,23 @@
 grammar Expression;
+import LexToken, EnvironmentVariable;
+
+expression_test : expression + EOF;
+
+expression_call_or_literal
+  : expression_call
+  | expression
+  ;
+
+expression_assignment: expression_handle '(' (ID (',' ID)*)* ')' '=' expression;
+
+expression_call : expression_handle '(' (expression_call_argument (',' expression_call_argument)*)* ')' ;
+
+expression_call_argument
+  : INT
+  | environment_variable
+  ;
+
+expression_handle : ID ;
 
 expression
    : multiplyingExpression ((PLUS | MINUS) multiplyingExpression)*
@@ -46,35 +65,3 @@ constant
   ;
 
 variable : ID ;
-
-
-LPAREN : '(' ;
-RPAREN : ')' ;
-PLUS : '+' ;
-MINUS : '-' ;
-TIMES : '*' ;
-DIV : '/' ;
-GT : '>' ;
-LT : '<' ;
-EQ : '=' ;
-COMMA : ',' ;
-POINT : '.' ;
-POW : '^' ;
-PI : 'pi' ;
-
-
-SCIENTIFIC_NUMBER
-   : NUMBER (('E' | 'e') SIGN? NUMBER)?
-   ;
-
-EULER : 'e' ;
-
-SUM : 'sum' ;
-
-fragment NUMBER
-   : ('0' .. '9') + ('.' ('0' .. '9') +)?
-   ;
-
-fragment SIGN
-   : ('+' | '-')
-   ;
