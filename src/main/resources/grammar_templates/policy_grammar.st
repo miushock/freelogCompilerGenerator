@@ -1,7 +1,7 @@
 policy_grammar(serviceName, keep_id) ::= <<
 grammar <serviceName>Policy;
 
-import <serviceName>, Event, Expression;
+import LexToken, <serviceName>Service, Event, Expression, Entity;
 
 policy : requirement declaration_section? state_definition_section EOF;
 
@@ -12,8 +12,7 @@ contract_with_subject : 'contract' 'with' subject;
 declaration_section: declaration_statements+ ;
 
 declaration_statements
-  : expression_declaration
-  | contract_account_declaration
+  : expression_assignment
   ;
 
 state_definition_section
@@ -31,8 +30,6 @@ state_transition
 
 state_name : ID ;
 
-currency_unit : FEATHER | BARB ;
-
-resource_id : RESOURCE_ID_TOKEN { <keep_id> };
+subject_id : subject { <keep_id> };
 
 >>
